@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  nestjs:
+    build: 
+      context: ./qr
+      target: development
+    volumes:
+      - ./qr:/usr/src/app
+    command: tail -f /dev/null
+    container_name: backend
+    ports:
+      - 3000:3000
+    networks:
+      - comedores
+
+  frontend:
+    build: 
+      context: ./qr-front
+      target: development
+    volumes:
+      - ./qr-front:/usr/src/app
+    command: tail -f /dev/null
+    container_name: frontend
+    ports:
+      - 3001:3000
+    networks:
+      - comedores
+
+  db:
+    image: mysql:8.0.19
+    environment:
+      - MYSQL_DATABASE=Comedores
+      - MYSQL_ROOT_PASSWORD=secr3t!
+    restart: always
+    container_name: db
+    volumes:
+      - ./qr/mysql:/var/lib/mysql
+    expose:
+      - 3306
+    networks:
+      - comedores
+
+networks:
+  comedores:
