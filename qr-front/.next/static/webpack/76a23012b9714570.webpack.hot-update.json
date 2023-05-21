@@ -1,1 +1,0 @@
-{"c":["pages/user/register","pages/user/all","webpack"],"r":["pages/user/register"],"m":["./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?absolutePagePath=%2Fusr%2Fsrc%2Fapp%2Fpages%2Fuser%2Fregister.tsx&page=%2Fuser%2Fregister!","./node_modules/next/router.js","./node_modules/react-hook-form/dist/index.esm.mjs","./pages/user/register.tsx"]}
