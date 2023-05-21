@@ -3,7 +3,8 @@
 **/node_modules
 **/mysql
 **/.next
-
+**/.next/cache
+**/.next/static
 
 # Logs
 logs
