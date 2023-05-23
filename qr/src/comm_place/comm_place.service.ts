@@ -26,7 +26,7 @@ export class CommPlaceService {
       cif: createCommPlaceDto.cif,
       name: createCommPlaceDto?.name,
       type: createCommPlaceDto?.type || 'community kitchen',
-      responsiblePerson: { id: createCommPlaceDto.responsiblePersonId }
+      responsiblePerson: { id: createCommPlaceDto.responsiblePerson }
     });
 
     if (createCommPlaceDto?.address) {
@@ -63,16 +63,16 @@ export class CommPlaceService {
         delete updateCommPlaceDto.address;
     }
 
-    if (updateCommPlaceDto?.responsiblePersonId) {
-      const person = await this.commPersonRepository.findOneOrFail({ where: { id: updateCommPlaceDto.responsiblePersonId } });
+    if (updateCommPlaceDto?.responsiblePerson) {
+      const person = await this.commPersonRepository.findOneOrFail({ where: { id: updateCommPlaceDto.responsiblePerson } });
       place.responsiblePerson = person;
-      delete updateCommPlaceDto.responsiblePersonId;
+      delete updateCommPlaceDto.responsiblePerson;
     }
 
-    if (updateCommPlaceDto?.entityId) {
-      const entity = await this.commEntityRepository.findOneOrFail({ where: { id: updateCommPlaceDto.entityId } });
+    if (updateCommPlaceDto?.entity) {
+      const entity = await this.commEntityRepository.findOneOrFail({ where: { id: updateCommPlaceDto.entity } });
       place.entity = entity;
-      delete updateCommPlaceDto.entityId;
+      delete updateCommPlaceDto.entity;
     }
 
     Object.assign(place, updateCommPlaceDto);

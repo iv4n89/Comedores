@@ -17,7 +17,7 @@ export class CommunityPersonService {
     create(createCommPersonDto: CreateCommunityPersonDto) {
         const person = this.commPersonRepository.create({
             ...createCommPersonDto,
-            entity: { id: createCommPersonDto.entityId }
+            entity: { id: createCommPersonDto.entity }
         });
         return this.commPersonRepository.save(person);
     }

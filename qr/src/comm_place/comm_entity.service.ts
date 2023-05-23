@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { CreateCommunityEntityDto } from "./dto/create-comm_entity.dto";
 import { UpdateCommunityEntityDto } from "./dto/update-comm_entity.dto";
 import { CommunityEntity } from "./entities/comm_entity.entity";
+import { CommunityEntityPerson } from "./entities/comm_entity_person.entity";
 
 
 @Injectable()
@@ -11,6 +12,8 @@ export class CommunityEntityService {
     constructor(
         @InjectRepository(CommunityEntity)
         private readonly commEntityRepository: Repository<CommunityEntity>,
+        @InjectRepository(CommunityEntityPerson)
+        private readonly commEntityPersonRepository: Repository<CommunityEntityPerson>,
     ) {}
 
     async create(createCommEntityDto: CreateCommunityEntityDto) {
@@ -23,7 +26,15 @@ export class CommunityEntityService {
             applicableRate: createCommEntityDto?.applicableRate || 0.5,
         });
 
-        return this.commEntityRepository.save(commEntity);
+        const entity = await this.commEntityRepository.save(commEntity);
+
+        if (createCommEntityDto?.responsiblePerson) {
+            const _person = this.commEntityPersonRepository.create(createCommEntityDto.responsiblePerson);
+            _person.entity = entity;
+            await this.commEntityPersonRepository.save(_person);
+        }
+
+        return entity;
     }
 
     findAll() {

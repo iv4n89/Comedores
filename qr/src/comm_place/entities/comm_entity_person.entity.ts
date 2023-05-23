@@ -1,5 +1,5 @@
 import { IsOptional } from "class-validator";
-import { AfterLoad, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { AfterLoad, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CommunityEntity } from "./comm_entity.entity";
 import { CommPlace } from "./comm_place.entity";
 
@@ -22,7 +22,7 @@ export class CommunityEntityPerson {
     @OneToMany(() => CommPlace, commPlace => commPlace.responsiblePerson)
     commPlaces: CommPlace[];
 
-    @ManyToOne(() => CommunityEntity, entity => entity.persons, { eager: true })
+    @OneToOne(() => CommunityEntity, entity => entity.person)
     @JoinColumn({ name: 'entity_id' })
     entity: CommunityEntity;
 

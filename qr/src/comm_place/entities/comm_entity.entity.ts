@@ -1,4 +1,4 @@
-import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CommunityEntityPerson } from "./comm_entity_person.entity";
 import { CommPlace } from "./comm_place.entity";
 
@@ -24,8 +24,8 @@ export class CommunityEntity {
     @OneToMany(() => CommPlace, commPlace => commPlace.entity)
     commPlaces: CommPlace[];
 
-    @OneToMany(() => CommunityEntityPerson, person => person.entity)
-    persons: CommunityEntityPerson[];
+    @OneToOne(() => CommunityEntityPerson, person => person.entity, { eager: true })
+    person: CommunityEntityPerson;
 
     @CreateDateColumn()
     createdAt: Date;

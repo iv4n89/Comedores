@@ -18,6 +18,6 @@ export class CreateCommunityPersonDto {
 
     @IsNotEmpty()
     @IsInt()
-    entityId: number;
+    entity: number;
 
 }

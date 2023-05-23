@@ -21,10 +21,10 @@ export class CreateCommPlaceDto {
 
     @IsNotEmpty()
     @IsInt()
-    entityId: number;
+    entity: number;
 
     @IsNotEmpty()
     @IsInt()
-    responsiblePersonId: number;
+    responsiblePerson: number;
 
 }
