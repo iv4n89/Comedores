@@ -1,18 +1,18 @@
 import React from 'react'
 import { Controller } from 'react-hook-form';
-import { InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { InputLabel, MenuItem, Select, TextField, FormControl } from '@mui/material';
 
 interface Props {
     control: any;
 }
 
 export const PersonalInfo = ({ control }: Props) => {
+
     return (
         <div className='w-full'>
-            <label className='pl-32'>Datos personales:</label>
             <div className='flex gap-5 justify-evenly'>
                 <div>
-                    <div className='mb-3 mt-2'>
+                    <FormControl className='mb-3 mt-2'>
                         <Controller
                             control={control}
                             name='name'
@@ -25,8 +25,8 @@ export const PersonalInfo = ({ control }: Props) => {
                                 }
                             }
                         ></Controller>
-                    </div>
-                    <div className="mb-3">
+                    </FormControl>
+                    <FormControl className="mb-3">
                         <Controller
                             control={control}
                             name='surname'
@@ -39,8 +39,8 @@ export const PersonalInfo = ({ control }: Props) => {
                                 }
                             }
                         ></Controller>
-                    </div>
-                    <div className="mb-3">
+                    </FormControl>
+                    <FormControl className="mb-3">
                         <Controller
                             control={control}
                             name='telNumber'
@@ -51,13 +51,13 @@ export const PersonalInfo = ({ control }: Props) => {
                                 }
                             }
                         ></Controller>
-                    </div>
+                    </FormControl>
                 </div>
                 <div>
                     <div className='mb-3'>
                         <label>Documento de identidad: </label>
-                        <div className="mb-2">
-                            <InputLabel color='secondary' id='doc-type'>Tipo</InputLabel>
+                        <FormControl className="mb-2">
+                            <InputLabel color='secondary' id='doc-type'>Tipo de documento</InputLabel>
                             <Controller
                                 control={control}
                                 name='identityDoc.docType'
@@ -68,9 +68,12 @@ export const PersonalInfo = ({ control }: Props) => {
                                                 {...field}
                                                 color='secondary'
                                                 fullWidth
-                                                label='Tipo'
+                                                label='Tipo de documento'
                                                 labelId='doc-type'
-
+                                                displayEmpty
+                                                sx={{
+                                                    width: '235px'
+                                                }}
                                             >
                                                 <MenuItem value='DNI'> DNI </MenuItem>
                                                 <MenuItem value='NIE'> NIE </MenuItem>
@@ -80,8 +83,8 @@ export const PersonalInfo = ({ control }: Props) => {
                                     }
                                 }
                             ></Controller>
-                        </div>
-                        <div className='mb-2'>
+                        </FormControl>
+                        <FormControl className='mb-2'>
                             <Controller
                                 control={control}
                                 name='identityDoc.idNumber'
@@ -94,7 +97,7 @@ export const PersonalInfo = ({ control }: Props) => {
                                     }
                                 }
                             ></Controller>
-                        </div>
+                        </FormControl>
                     </div>
                 </div>
             </div>

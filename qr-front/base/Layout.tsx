@@ -25,6 +25,7 @@ export const Layout = ({ children }: Props) => {
                     paddingBottom: '$10',
                 }}
                 height={80}
+                maxWidth={'fluid'}
             >
                 <Navbar.Brand>
                     <Image
@@ -53,9 +54,10 @@ export const Layout = ({ children }: Props) => {
                         }}
                     > Comedores </Navbar.Link>
                     <Navbar.Link
-                        href='#'
+                        href='/entidad/register'
                         activeColor='success'
                         variant='highlight-solid'
+                        isActive={route.includes('/entidad/register')}
                         style={{
                             color: 'white'
                         }}
