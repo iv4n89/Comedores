@@ -1,6 +1,7 @@
 import { CommPlace } from "src/comm_place/entities/comm_place.entity";
 import { City } from "src/country/entities/city.entity";
 import { Country } from "src/country/entities/country.entity";
+import { Province } from "src/country/entities/province.entity";
 import { State } from "src/country/entities/state.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity";
@@ -37,6 +38,10 @@ export class Address {
     @ManyToOne(() => State, state => state.addresses, { eager: true })
     @JoinColumn({ name: 'state_id' })
     state: State;
+
+    @ManyToOne(() => Province, province => province.addresses)
+    @JoinColumn({ name: 'province_id' })
+    province: Province;
 
     @ManyToOne(() => City, city => city.address, { eager: true })
     @JoinColumn({ name: 'city_id' })

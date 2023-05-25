@@ -61,7 +61,7 @@ export class CommPlace {
     city: City;
 
     @IsOptional()
-    postalCode: string;
+    postalCodes: string[];
 
     @IsOptional()
     responsibleTlf: string;
@@ -70,7 +70,7 @@ export class CommPlace {
     getCity() {
         if (this?.address && this?.address?.city) {
             this.city = this.address.city;
-            this.postalCode = this.address.city.postalCode;
+            this.postalCodes = this.address.city.postalCode.split(',');
         }
     }
 

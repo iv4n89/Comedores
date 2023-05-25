@@ -1,27 +1,25 @@
 import { Address } from "src/user/entities/address.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Province } from "./province.entity";
+import { City } from "./city.entity";
 import { State } from "./state.entity";
 
-
-@Entity({ name: 'cities' })
-export class City {
-
+@Entity({ name: 'provinces' })
+export class Province {
     @PrimaryGeneratedColumn({ name: 'id', type: 'bigint', unsigned: true })
     id: number;
 
     @Column('varchar', { name: 'name', nullable: false })
     name: string;
 
-    @Column('text', { name: 'postal_code', nullable: false })
-    postalCode: string;
+    @ManyToOne(() => State, state => state.provinces)
+    @JoinColumn({ name: 'state_id' })
+    state: State;
 
-    @ManyToOne(() => Province, province => province.cities)
-    @JoinColumn({ name: 'province_id' })
-    province: Province;
+    @OneToMany(() => City, city => city.province)
+    cities: City[];
 
-    @OneToMany(() => Address, address => address.city)
-    address: Address;
+    @OneToMany(() => Address, address => address.province)
+    addresses: Address[];
 
     @CreateDateColumn()
     createdAt: Date;
@@ -31,5 +29,4 @@ export class City {
 
     @DeleteDateColumn()
     deletedAt: Date;
-
 }

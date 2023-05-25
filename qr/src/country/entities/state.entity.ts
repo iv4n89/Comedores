@@ -2,6 +2,7 @@ import { Address } from "src/user/entities/address.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { City } from "./city.entity";
 import { Country } from "./country.entity";
+import { Province } from "./province.entity";
 
 
 @Entity({ name: 'states' })
@@ -20,8 +21,8 @@ export class State {
     @OneToMany(() => Address, address => address.state)
     addresses: Address[];
 
-    @OneToMany(() => City, city => city.state)
-    cities: City[];
+    @OneToMany(() => Province, province => province.state)
+    provinces: Province[];
 
     @CreateDateColumn()
     createdAt: Date;
