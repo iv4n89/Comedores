@@ -82,7 +82,7 @@ export default function RegisterUser() {
                             </Box>
                         </TabPanel>
                         <TabPanel value={tab} index={1}>
-                            <AddressInfo control={control} />
+                            <AddressInfo control={control} watch={ watch } />
                         </TabPanel>
                         <div className="mb-3 pt-3 pl-28 absolute bottom-2">
                             <button
@@ -102,6 +102,7 @@ export default function RegisterUser() {
                             </button>
                         </div>
                     </Box>
+                    <pre>{JSON.stringify(watch(), null, 2)}</pre>
                 </form>
             </div>
         </Layout>

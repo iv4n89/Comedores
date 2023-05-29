@@ -34,6 +34,7 @@ export interface Address {
     door?: string;
     country?: Country;
     state?: State;
+    privince?: Province;
     city?: City;
     extraInfo?: string;
     createdAt?: Date;
@@ -59,6 +60,15 @@ export interface State {
     id: number;
     name: string;
     country?: Country;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date;
+}
+
+export interface Province {
+    id: number;
+    name: string;
+    state?: State;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
