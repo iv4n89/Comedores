@@ -14,7 +14,7 @@ export class State {
     @Column('varchar', { name: 'name', nullable: false })
     name: string;
 
-    @ManyToOne(() => Country, country => country.states)
+    @ManyToOne(() => Country, country => country.states, { eager: true })
     @JoinColumn({ name: 'country_id' })
     country: Country;
 

@@ -1,7 +1,6 @@
 import { Address } from "src/user/entities/address.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Province } from "./province.entity";
-import { State } from "./state.entity";
 
 
 @Entity({ name: 'cities' })
@@ -16,7 +15,7 @@ export class City {
     @Column('text', { name: 'postal_code', nullable: false })
     postalCode: string;
 
-    @ManyToOne(() => Province, province => province.cities)
+    @ManyToOne(() => Province, province => province.cities, { eager: true })
     @JoinColumn({ name: 'province_id' })
     province: Province;
 
