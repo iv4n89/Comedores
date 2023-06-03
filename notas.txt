@@ -1,0 +1,17 @@
+Al pasar el qr dice si puede o no pasar, tiempo que resta, ultima entrada, datos personales minimos.
+
+Un comedor puede tener varias entidades.
+
+Comedores pueden crearse en db sin entidades.
+
+Entidades saben que está registrado, pero no saben dónde.
+
+Historial añadir intentos fallidos de entrada.
+
+Tarifa aplicable va en pedido de entidad.
+Tarifa es a cuanto se cobra la pulsera.
+
+Se pueden añadir el número de personas por el que paguen
+Altas ilimitadas *
+Personas usándolos al mes -> cobro.
+Generación de informe -> Que diga el número de usuarios y el trabajador pone manualmente el precio para la generación.

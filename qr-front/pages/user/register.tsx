@@ -1,16 +1,14 @@
 import userApi from '@/api/user.api';
 import { Layout } from '@/base/Layout';
-import { NextButton } from '@/components/buttons/NextButton';
+import { TabPanel } from '@/components/tabs/TabPanel';
 import { AddressInfo } from '@/components/user/registerUser/AddressInfo';
 import { PersonalInfo } from '@/components/user/registerUser/PersonalInfo';
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { TabPanel } from '@/components/tabs/TabPanel';
+import { useForm } from 'react-hook-form';
 
 export default function RegisterUser() {
 
@@ -82,7 +80,7 @@ export default function RegisterUser() {
                             </Box>
                         </TabPanel>
                         <TabPanel value={tab} index={1}>
-                            <AddressInfo control={control} watch={ watch } />
+                            <AddressInfo control={control} watch={ watch } register={register} />
                         </TabPanel>
                         <div className="mb-3 pt-3 pl-28 absolute bottom-2">
                             <button

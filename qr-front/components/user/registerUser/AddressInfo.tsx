@@ -39,20 +39,23 @@ export const AddressInfo = ({ control, watch }: Props) => {
         cityApi.getCitiesByProvince(addressValues.province).then(setCities);
     }, [addressValues.province]);
 
-    useEffect(() => {
-        setCity(cities?.find(c => c.id == addressValues.city)!)
-        setCp(city?.postalCode?.split(',')?.map(Number)[1]);
-    }, [addressValues.city]);
-
-    useEffect(() => {
-        if (cp > 10000) {
-            setCity(cities?.find(c => c.postalCode === `${cp}`)!);
-        }
-    }, [cp])
-
     const handleChangeState = ({ target }: SelectChangeEvent) => setaddressValues(val => ({ ...val, state: Number(target.value) }));
     const handleChangeProvince = ({ target }: SelectChangeEvent) => setaddressValues(val => ({ ...val, province: Number(target.value) }));
-    const handleChangeCity = ({ target }: SelectChangeEvent) => setaddressValues(val => ({ ...val, city: Number(target.value) }));
+    const handleChangeCity = ({ target }: SelectChangeEvent) => {
+        const _city = cities?.find(c => c.id == Number(target.value))!;
+        setCity(_city)
+        setCp(_city?.postalCode?.split(',')?.map(Number)[0] > 10000
+            ? _city?.postalCode?.split(',')?.map(Number)[0]
+            : _city?.postalCode?.split(',')?.map(Number)[1]
+            || 0);
+        setaddressValues(val => ({ ...val, city: Number(target.value) }));
+    };
+    const handleChangeCp = ({ target }: any) => {
+        setCp(Number(target.value));
+        if (Number(target.value) > 10000) {
+            setCity(cities?.find(c => c.postalCode === `${cp}`)!);
+        }
+    }
 
     return (
         <div className='w-full'>
@@ -76,12 +79,12 @@ export const AddressInfo = ({ control, watch }: Props) => {
                                                 sx={{
                                                     width: '235px'
                                                 }}
-                                                { ...field }
-                                                onChange={ handleChangeState }
+                                                {...field}
+                                                onChange={handleChangeState}
                                             >
                                                 {
                                                     states.map(state => (
-                                                        <MenuItem key={state.id} value={state.id}> { state.name } </MenuItem>
+                                                        <MenuItem key={state.id} value={state.id}> {state.name} </MenuItem>
                                                     ))
                                                 }
                                             </Select>
@@ -99,11 +102,12 @@ export const AddressInfo = ({ control, watch }: Props) => {
                                     ({ field }) => {
                                         return (
                                             <Select
-                                                { ...field }
+                                                {...field}
                                                 label='Provincia'
                                                 labelId='province-label'
                                                 fullWidth
                                                 color='secondary'
+                                                value={`${ addressValues.province }`}
                                                 sx={{
                                                     width: '235px',
                                                 }}
@@ -140,13 +144,14 @@ export const AddressInfo = ({ control, watch }: Props) => {
                                                 sx={{
                                                     width: '235px'
                                                 }}
-                                                onChange={ handleChangeCity }
-                                                hidden={ ObjectUtil.isIdCero(addressValues.province) }
+                                                value={`${addressValues.city}`}
+                                                onChange={handleChangeCity}
+                                                hidden={ObjectUtil.isIdCero(addressValues.province)}
                                             >
                                                 {
                                                     cities.map(city => (
                                                         <MenuItem key={city.id} value={city.id}>
-                                                            { city.name }
+                                                            {city.name}
                                                         </MenuItem>
                                                     ))
                                                 }
@@ -164,14 +169,15 @@ export const AddressInfo = ({ control, watch }: Props) => {
                                 render={
                                     ({ field }) => {
                                         return (
-                                            <TextField 
-                                                label='Código postal' 
-                                                color='secondary' 
+                                            <TextField
+                                                type={'number'}
+                                                label='Código postal'
+                                                color='secondary'
                                                 {...field}
                                                 value={cp}
-                                                onChange={ e => setCp(Number(e.target.value)) }
-                                                hidden={ ObjectUtil.isIdCero(addressValues.province) }
-                                                focused={ city?.postalCode?.length > 0 }
+                                                onChange={handleChangeCp}
+                                                hidden={!addressValues.province}
+                                                focused
                                             />
                                         )
                                     }
@@ -195,7 +201,7 @@ export const AddressInfo = ({ control, watch }: Props) => {
                                                 sx={{
                                                     width: '235px'
                                                 }}
-                                                hidden={ ObjectUtil.isEmpty(addressValues.city) }
+                                                hidden={ObjectUtil.isEmpty(addressValues.city)}
                                             >
                                                 <MenuItem value='calle'>Calle</MenuItem>
                                                 <MenuItem value='plaza'>Plaza</MenuItem>
@@ -220,7 +226,7 @@ export const AddressInfo = ({ control, watch }: Props) => {
                                                 label='Nombre de Calle'
                                                 color='secondary'
                                                 {...field}
-                                                hidden={ ObjectUtil.isEmpty(addressValues.city) }
+                                                hidden={ObjectUtil.isEmpty(addressValues.city)}
                                             />
                                         )
                                     }
@@ -240,7 +246,7 @@ export const AddressInfo = ({ control, watch }: Props) => {
                                                 label='Número'
                                                 color='secondary'
                                                 {...field}
-                                                hidden={ ObjectUtil.isEmpty(addressValues.city) }
+                                                hidden={ObjectUtil.isEmpty(addressValues.city)}
                                             />
                                         )
                                     }

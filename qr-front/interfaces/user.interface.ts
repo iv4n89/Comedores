@@ -34,7 +34,7 @@ export interface Address {
     door?: string;
     country?: Country;
     state?: State;
-    privince?: Province;
+    province?: Province;
     city?: City;
     extraInfo?: string;
     createdAt?: Date;
@@ -78,8 +78,7 @@ export interface City {
     id: number;
     name: string;
     postalCode: string;
-    state?: State;
-    country?: Country;
+    province?: Province;
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;
