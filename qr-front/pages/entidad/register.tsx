@@ -2,11 +2,13 @@ import entityApi from '@/api/entity.api';
 import { Layout } from '@/base/Layout';
 import { FormControlBox } from '@/components/boxes/FormControlBox';
 import { RoundedBox } from '@/components/boxes/RoundedBox';
+import { TabPanel } from '@/components/tabs/TabPanel';
 import { Entity } from '@/interfaces/entity.interface';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
-import { Col, Row } from '@nextui-org/react';
+import { Box, InputLabel, MenuItem, Select, Tab, Tabs, TextField, Typography } from '@mui/material';
+import { Col, Container, Radio, Row } from '@nextui-org/react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -23,6 +25,8 @@ const schema = yup.object({
 
 export default function EntidadRegister() {
 
+    const [tab, setTab] = useState(0);
+    const [addPlaces, setAddPlaces] = useState(false);
     const { control, handleSubmit, watch, formState: { errors, isDirty } } = useForm<Entity>({
         resolver: yupResolver(schema),
     });
@@ -51,11 +55,26 @@ export default function EntidadRegister() {
                 >
                     Registro de entidades
                 </Typography>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className='w-full pt-10'>
                     <RoundedBox sx={{ height: '40vh' }} row={false}>
-                        <Row
-                            className='relative h-full'
+                        <Box
+                            sx={{
+                                width: '100%',
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}
                         >
+                            <Tabs
+                                textColor='secondary'
+                                indicatorColor='secondary'
+                                value={tab}
+                                onChange={(event, newValue) => setTab(newValue)}
+                            >
+                                <Tab label='Datos' />
+                                <Tab label='Lugares' />
+                            </Tabs>
+                        </Box>
+                        <TabPanel value={tab} index={0}>
                             <Row>
                                 <Col>
                                     <Typography>
@@ -199,15 +218,42 @@ export default function EntidadRegister() {
                                     </FormControlBox>
                                 </Col>
                             </Row>
-                            <button
-                                type='submit'
-                                className={
-                                    `absolute bottom-0 pt-2 pb-2 pl-3 pr-3 border rounded-lg text-white font-bold shadow-lg hover:bg-purple-500 active:bg-purple-400 active:translate-y-2 transition-all ease-in-out duration-200 ${Object.keys(errors).length ? ' bg-red-600 ' : 'bg-green-600 '}`
-                                }
-                            >
-                                Enviar
-                            </button>
-                        </Row>
+                        </TabPanel>
+                        <TabPanel value={tab} index={1}>
+                            <Container>
+                                <Row>
+                                    <Col>
+                                        <FormControlBox>
+                                            <Typography>
+                                                ¿Desea agregar lugares a esta entidad?
+                                            </Typography>
+                                            <Radio.Group
+                                                label='Agregar lugares'
+                                                defaultValue='0'
+                                                onChange={e => setAddPlaces(e === '1')}
+                                                value={addPlaces ? '1' : '0'}
+                                            >
+                                                <Radio value='1'>Si</Radio>
+                                                <Radio value='0'>No</Radio>
+                                            </Radio.Group>
+                                        </FormControlBox>
+                                    </Col>
+                                        <FormControlBox>
+                                            
+                                        </FormControlBox>
+                                    <Col>
+                                    </Col>
+                                </Row>
+                            </Container>
+                        </TabPanel>
+                        <button
+                            type='submit'
+                            className={
+                                `absolute bottom-0 pt-2 pb-2 pl-3 pr-3 border rounded-lg text-white font-bold shadow-lg hover:bg-purple-500 active:bg-purple-400 active:translate-y-2 transition-all ease-in-out duration-200 ${Object.keys(errors).length ? ' bg-red-600 ' : 'bg-green-600 '}`
+                            }
+                        >
+                            Enviar
+                        </button>
                     </RoundedBox>
                 </form>
             </div>

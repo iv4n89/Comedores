@@ -9,15 +9,17 @@ interface Props {
     formControlSx?: SxProps<Theme>;
     rowClassName?: string;
     rowStyle?: CSSProperties;
+    hidden?: boolean;
 }
 
-export const FormControlBox = ({ children, formControlClassName: className, formControlSx: sx, rowClassName, rowStyle }: Props) => {
+export const FormControlBox = ({ children, formControlClassName: className, formControlSx: sx, rowClassName, rowStyle, hidden }: Props) => {
     return (
         <Row
             style={{
                 ...rowStyle
             }}
             className={rowClassName}
+            hidden={hidden}
         >
             <FormControl
                 className={'mb-3 ' + className}

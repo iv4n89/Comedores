@@ -1,6 +1,7 @@
 import commPlaceApi from "@/api/commPlace.api";
 import { Layout } from "@/base/Layout";
 import { CommPlace } from "@/interfaces/entity.interface";
+import { capitalizeWord } from "@/util/strUtils";
 import { Typography } from "@mui/material";
 import { Card, Container, Grid } from "@nextui-org/react";
 import { useEffect, useState } from "react";
@@ -27,11 +28,16 @@ export default function ComedorAll() {
                                 >
                                     <Card.Header
                                         style={{
-                                            backgroundColor: 'lightgreen',
-                                            margin: 0
+                                            backgroundColor: com.type === 'community kitchen' ? '#36C964' : '#8A13D1',
+                                            margin: 0,
+                                            color: com.type === 'community kitchen' ? 'black' : 'white',
                                         }}
                                     >
-                                        <Typography>
+                                        <Typography
+                                            sx={{
+                                                fontWeight: 'bolder'
+                                            }}
+                                        >
                                             {com.name}
                                         </Typography>
                                     </Card.Header>
@@ -45,7 +51,7 @@ export default function ComedorAll() {
                                             </span>
                                             <div className="rounded-md border border-green-400 p3 mt-2">
                                                 <label>
-                                                    {com?.address?.addrType} {com?.address?.streetName} Número {com?.address?.streetNumber}
+                                                    {capitalizeWord(com?.address?.addrType as string)} {com?.address?.streetName} Número {com?.address?.streetNumber}
                                                 </label>
                                                 <br />
                                                 <label>

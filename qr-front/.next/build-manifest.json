@@ -25,25 +25,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/comedor/all": [
+    "/entidad/register": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/comedor/all.js"
-    ],
-    "/comedor/register": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/comedor/register.js"
-    ],
-    "/user/all": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/user/all.js"
-    ],
-    "/user/register": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/user/register.js"
+      "static/chunks/pages/entidad/register.js"
     ]
   },
   "ampFirstPages": []
