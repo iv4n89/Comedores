@@ -2,7 +2,7 @@ import { IsOptional } from "class-validator";
 import { City } from "src/country/entities/city.entity";
 import { Address } from "src/user/entities/address.entity";
 import { User } from "src/user/entities/user.entity";
-import { AfterLoad, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { AfterLoad, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CommunityEntity } from "./comm_entity.entity";
 import { CommunityEntityPerson } from "./comm_entity_person.entity";
 import { CommPlaceUserRegistry } from "./user_registry.entity";
@@ -40,9 +40,9 @@ export class CommPlace {
     @ManyToMany(() => User, user => user.commPlaces)
     users: User[];
 
-    @ManyToOne(() => CommunityEntity, commEntity => commEntity.commPlaces, { eager: true })
-    @JoinColumn({ name: 'comm_entity_id' })
-    entity: CommunityEntity;
+    @ManyToMany(() => CommunityEntity, commEntity => commEntity.commPlaces, { eager: true, nullable: true })
+    @JoinTable({ name: 'comm_places_entities' })
+    entity: CommunityEntity[];
 
     @ManyToOne(() => CommunityEntityPerson, person => person.commPlaces, { eager: true })
     @JoinColumn({ name: 'responsible_person_id' })

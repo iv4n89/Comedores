@@ -29,14 +29,14 @@ export class CreateAddressDto {
 
     @IsOptional()
     @IsInt()
-    countryId: number;
+    country: number;
 
     @IsOptional()
     @IsInt()
-    stateId: number;
+    state: number;
 
     @IsOptional()
     @IsInt()
-    cityId: number;
+    city: number;
 
 }

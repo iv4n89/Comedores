@@ -80,7 +80,7 @@ export default function RegisterUser() {
                             </Box>
                         </TabPanel>
                         <TabPanel value={tab} index={1}>
-                            <AddressInfo control={control} watch={ watch } register={register} />
+                            <AddressInfo control={control} watch={ watch } />
                         </TabPanel>
                         <div className="mb-3 pt-3 pl-28 absolute bottom-2">
                             <button

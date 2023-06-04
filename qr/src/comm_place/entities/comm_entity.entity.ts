@@ -1,4 +1,4 @@
-import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CommunityEntityPerson } from "./comm_entity_person.entity";
 import { CommPlace } from "./comm_place.entity";
 
@@ -21,7 +21,7 @@ export class CommunityEntity {
     @Column('float', { name: 'applicable_rate', nullable: true, default: 0.50 })
     applicableRate: 0.50 | 0.75 | 2.50;
 
-    @OneToMany(() => CommPlace, commPlace => commPlace.entity)
+    @ManyToMany(() => CommPlace, commPlace => commPlace.entity)
     commPlaces: CommPlace[];
 
     @OneToOne(() => CommunityEntityPerson, person => person.entity, { eager: true })

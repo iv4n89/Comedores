@@ -19,11 +19,11 @@ export class CreateCommPlaceDto {
     @IsOptional()
     address?: Partial<Address>;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsInt()
-    entity: number;
+    entity?: number | number[];
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsInt()
     responsiblePerson: number;
 

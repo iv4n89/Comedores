@@ -25,10 +25,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/user/register": [
+    "/comedor/register": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/user/register.js"
+      "static/chunks/pages/comedor/register.js"
     ]
   },
   "ampFirstPages": []

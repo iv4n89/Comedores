@@ -7,7 +7,7 @@ services:
       target: development
     volumes:
       - ./qr:/usr/src/app
-    command: tail -f /dev/null
+    command: npm run start:dev
     container_name: backend
     ports:
       - 3000:3000
@@ -20,7 +20,7 @@ services:
       target: development
     volumes:
       - ./qr-front:/usr/src/app
-    command: tail -f /dev/null
+    command: npm run dev
     container_name: frontend
     ports:
       - 3001:3000

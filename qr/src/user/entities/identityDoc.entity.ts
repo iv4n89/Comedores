@@ -9,7 +9,7 @@ export class IdentityDoc {
     @PrimaryGeneratedColumn({ name: 'id', type: 'bigint', unsigned: true })
     id: number;
 
-    @Column('varchar', { name: 'id_number', nullable: false })
+    @Column('varchar', { name: 'id_number', nullable: false, unique: true })
     idNumber: string;
 
     @Column('varchar', { name: 'doc_type', nullable: false })

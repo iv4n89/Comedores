@@ -21,7 +21,8 @@ COPY --chown=node:node . .
 # Use the node user from the image (instead of the root user)
 USER node
 
-ENTRYPOINT [ "tail", "-f", "/dev/null" ]
+# RUN npm run dev
+# ENTRYPOINT [ "tail", "-f", "/dev/null" ]
 
 ###################
 # BUILD FOR PRODUCTION

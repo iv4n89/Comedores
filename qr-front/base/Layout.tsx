@@ -40,15 +40,16 @@ export const Layout = ({ children }: Props) => {
                         href='/user/register'
                         activeColor='success'
                         variant='highlight-solid'
-                        isActive={route.includes('/user/register')}
+                        isActive={route.includes('/user')}
                         style={{
                             color: 'white'
                         }}
                     > Beneficiarios </Navbar.Link>
                     <Navbar.Link
-                        href='#'
+                        href='/comedor/register'
                         activeColor='success'
                         variant='highlight-solid'
+                        isActive={route.includes('/comedor')}
                         style={{
                             color: 'white'
                         }}
@@ -57,7 +58,7 @@ export const Layout = ({ children }: Props) => {
                         href='/entidad/register'
                         activeColor='success'
                         variant='highlight-solid'
-                        isActive={route.includes('/entidad/register')}
+                        isActive={route.includes('/entidad')}
                         style={{
                             color: 'white'
                         }}
@@ -72,14 +73,6 @@ export const Layout = ({ children }: Props) => {
                             color: 'white'
                         }}
                     > Inciar Sesión </Navbar.Link>
-                    <Navbar.Link
-                        href='#'
-                        activeColor='success'
-                        variant='highlight-solid'
-                        style={{
-                            color: 'white'
-                        }}
-                    > Registrarse </Navbar.Link>
                 </Navbar.Content>
             </Navbar>
             <Container maxWidth='md' className='pt-5'>

@@ -70,8 +70,15 @@ export class CommPlaceService {
     }
 
     if (updateCommPlaceDto?.entity) {
-      const entity = await this.commEntityRepository.findOneOrFail({ where: { id: updateCommPlaceDto.entity } });
-      place.entity = entity;
+      if (Array.isArray(updateCommPlaceDto?.entity)) {
+        for (const ent of updateCommPlaceDto?.entity) {
+          const _ent = await this.commEntityRepository.findOneOrFail({ where: { id: ent } });
+          place.entity = [...(place.entity.filter(e => e.id !== ent)), _ent];
+        }
+      } else {
+        const entity = await this.commEntityRepository.findOneOrFail({ where: { id: updateCommPlaceDto.entity } });
+        place.entity = [...(place.entity.filter(ent => ent.id !== entity.id)), entity];
+      }
       delete updateCommPlaceDto.entity;
     }
 
