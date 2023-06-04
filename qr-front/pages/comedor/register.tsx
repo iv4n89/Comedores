@@ -1,7 +1,7 @@
 import { Layout } from "@/base/Layout";
 import { FormControlBox } from "@/components/boxes/FormControlBox";
 import { RoundedBox } from "@/components/boxes/RoundedBox";
-import { InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Button, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -15,6 +15,7 @@ import provinceApi from "@/api/province.api";
 import cityApi from "@/api/city.api";
 import { AddressSelects } from "@/components/address/AddressSelects";
 import { AddressInfo } from "@/components/user/registerUser/AddressInfo";
+import commPlaceApi from "@/api/commPlace.api";
 
 
 export default function ComedorRegister() {
@@ -22,12 +23,14 @@ export default function ComedorRegister() {
     const { register, control, watch, formState: { errors }, handleSubmit, setValue } = useForm();
     const [tab, setTab] = useState(0);
 
+    const onsubmit = (data: any) => commPlaceApi.createPlace(data);
 
     return (
         <Layout>
             <RoundedBox>
                 <form
                     className="w-full pt-10"
+                    onSubmit={handleSubmit(onsubmit)}
                 >
                     <Box
                         sx={{
@@ -109,6 +112,15 @@ export default function ComedorRegister() {
                     <TabPanel value={tab} index={1}>
                         <AddressInfo control={control} watch={watch} setValue={setValue} />
                     </TabPanel>
+                    <div>
+                        <Button
+                            variant='outlined'
+                            color="secondary"
+                            type='submit'
+                        >
+                            Enviar
+                        </Button>
+                    </div>
                 </form>
             </RoundedBox>
             <pre>

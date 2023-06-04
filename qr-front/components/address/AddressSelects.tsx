@@ -46,6 +46,8 @@ export const AddressSelects = ({ control, watch, setValue }: Props) => {
             const city: City | undefined = cities?.find(c => !!c.postalCode.length && c.postalCode.split(',').includes(watch()?.address?.postalCode));
             const province: Province | undefined = city?.province;
             const state: State | undefined = province?.state;
+            !!state && provinceApi.getProvincesByState(state?.id).then(setProvinces);
+            !!province && cityApi.getCitiesByProvince(province?.id).then(setCities);
             !!setValue && setValue('address.state', state?.id);
             !!setValue && setValue('address.province', province?.id);
             !!setValue && setValue('address.city', city?.id);
