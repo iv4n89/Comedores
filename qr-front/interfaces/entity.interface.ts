@@ -37,7 +37,7 @@ export interface CommPlace {
     cif: string;
     type?: CommPlaceType;
     address?: Address;
-    entity?: number | Entity;
+    entity?: Entity[];
     responsiblePerson?: number | EntityResponsiblePerson;
     createdAt?: Date;
     updatedAt?: Date;
@@ -47,5 +47,10 @@ export interface CommPlace {
 export type CommPlaceType = 
     | 'community kitchen'
     | 'company store';
+
+export enum CommPlaceTypeEnum {
+    kitchen = 'community kitchen',
+    store = 'company store'
+}
 
 

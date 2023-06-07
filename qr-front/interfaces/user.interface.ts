@@ -7,6 +7,7 @@ export interface User {
     telNumber: string;
     identityDoc?: IdentityDoc;
     address?: Address;
+    places?: number[];
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;

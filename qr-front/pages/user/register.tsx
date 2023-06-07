@@ -1,14 +1,18 @@
+import commPlaceApi from '@/api/commPlace.api';
 import userApi from '@/api/user.api';
 import { Layout } from '@/base/Layout';
+import { FormControlBox } from '@/components/boxes/FormControlBox';
 import { TabPanel } from '@/components/tabs/TabPanel';
 import { AddressInfo } from '@/components/user/registerUser/AddressInfo';
 import { PersonalInfo } from '@/components/user/registerUser/PersonalInfo';
+import { CommPlace } from '@/interfaces/entity.interface';
+import { Chip, InputLabel, MenuItem, Select } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
 export default function RegisterUser() {
 
@@ -27,9 +31,26 @@ export default function RegisterUser() {
         register,
     } = useForm();
     const { push } = useRouter();
-    const onSubmit = (data: any) => userApi.createUser(data).then((res) => res!.status === 201 && push({ pathname: '/user/all' }));
+    const onSubmit = (data: any) => userApi
+        .createUser({
+            ...data,
+            places: [places.kitchen, places.store],
+        })
+        .then((res) => res!.status === 201 && push({ pathname: '/user/all' }));
+
+    const [kitchens, setKitchens] = useState([] as CommPlace[]);
+    const [stores, setStores] = useState([] as CommPlace[]);
+    const [places, setPlaces] = useState({
+        kitchen: 0,
+        store: 0,
+    });
 
     const [tab, setTab] = useState(0);
+
+    useEffect(() => {
+        commPlaceApi.getKitchens().then(setKitchens);
+        commPlaceApi.getStores().then(setStores);
+    }, [])
 
     return (
         <Layout>
@@ -49,6 +70,7 @@ export default function RegisterUser() {
                         position: 'relative',
                         paddingBottom: '60px',
                         boxShadow: 1,
+                        backgroundColor: 'white',
                     }}
                     >
                         <Box sx={{
@@ -81,6 +103,72 @@ export default function RegisterUser() {
                         </TabPanel>
                         <TabPanel value={tab} index={1}>
                             <AddressInfo control={control} watch={ watch } />
+                        </TabPanel>
+                        <TabPanel value={tab} index={2}>
+                            <FormControlBox>
+                                <InputLabel id='come-id'>Comedor</InputLabel>
+                                <Controller
+                                    name='kitchen'
+                                    control={control}
+                                    render={
+                                        ({field}) => (
+                                            <Select
+                                                {...field}
+                                                label='Comedores'
+                                                labelId='com-id'
+                                                displayEmpty
+                                                color='secondary'
+                                                fullWidth
+                                                value={places.kitchen}
+                                                onChange={e => setPlaces(p => ({...p, kitchen: Number(e.target.value)}))}
+                                                sx={{
+                                                    width: '235px'
+                                                }}
+                                            >
+                                                {
+                                                    kitchens.map(k => (
+                                                        <MenuItem key={k.id} value={k.id}>
+                                                            {k.name}, {k.address?.streetName} {k.address?.streetNumber} <br/> {k.address?.city?.name}
+                                                        </MenuItem>
+                                                    ))
+                                                }
+                                            </Select>
+                                        )
+                                    }
+                                />
+                            </FormControlBox>
+                            <FormControlBox>
+                                <InputLabel id='sto-id'>Economato</InputLabel>
+                                <Controller
+                                    name='store'
+                                    control={control}
+                                    render={
+                                        ({field}) => (
+                                            <Select
+                                                {...field}
+                                                label='Economato'
+                                                labelId='sto-id'
+                                                displayEmpty
+                                                color='secondary'
+                                                fullWidth
+                                                value={places.store}
+                                                sx={{
+                                                    width: '235px',
+                                                }}
+                                                onChange={e => setPlaces(p => ({...p, store: Number(e.target.value)}))}
+                                            >
+                                                {
+                                                    stores.map(s => (
+                                                        <MenuItem key={s.id} value={s.id}>
+                                                            {s.name}, {s.address?.streetName} {s.address?.streetNumber} <br/> {s.address?.city?.name}
+                                                        </MenuItem>
+                                                    ))
+                                                }
+                                            </Select>
+                                        )
+                                    }
+                                />
+                            </FormControlBox>
                         </TabPanel>
                         <div className="mb-3 pt-3 pl-28 absolute bottom-2">
                             <button

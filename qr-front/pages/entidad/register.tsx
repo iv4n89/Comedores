@@ -56,7 +56,7 @@ export default function EntidadRegister() {
                     Registro de entidades
                 </Typography>
                 <form onSubmit={handleSubmit(onSubmit)} className='w-full pt-10'>
-                    <RoundedBox sx={{ height: '40vh' }} row={false}>
+                    <RoundedBox sx={{ height: '40vh', backgroundColor: 'white' }} row={false}>
                         <Box
                             sx={{
                                 width: '100%',

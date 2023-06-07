@@ -21,6 +21,7 @@ export const RoundedBox = ({ children, sx, row = true }: Props) => {
                     position: 'relative',
                     paddingBottom: '60px',
                     boxShadow: 1,
+                    backgroundColor: 'white',
                     ...sx
                 }}
             >

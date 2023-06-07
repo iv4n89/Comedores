@@ -11,6 +11,7 @@ import {
 import { CommPlaceService } from './comm_place.service';
 import { CreateCommPlaceDto } from './dto/create-comm_place.dto';
 import { UpdateCommPlaceDto } from './dto/update-comm_place.dto';
+import { CommPlaceType } from './entities/comm_place.entity';
 
 @Controller('comm-place')
 export class CommPlaceController {
@@ -19,6 +20,11 @@ export class CommPlaceController {
   @Post()
   create(@Body() createCommKitchenDto: CreateCommPlaceDto) {
     return this.commKitchenService.create(createCommKitchenDto);
+  }
+  
+  @Post('search/by/type')
+  public findKitchenOrStore(@Body() body: { type: CommPlaceType }) {
+      return this.commKitchenService.findKitchensOrStores(body.type);
   }
 
   @Get()

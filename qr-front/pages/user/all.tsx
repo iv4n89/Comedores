@@ -64,6 +64,13 @@ export default function AllUsers() {
                                                 </label>
                                             </div>
                                         </div>
+                                        {
+                                            user.places?.length && (
+                                                <div className="pt-2">
+                                                    <Typography>Comedor:</Typography>
+                                                </div>
+                                            ) || <pre>{JSON.stringify(user, null, 2)}</pre>
+                                        }
                                     </Card.Body>
                                 </Card>
                             </Grid>

@@ -14,9 +14,20 @@ export class CommunityPersonService {
         private readonly commPersonRepository: Repository<CommunityEntityPerson>,
     ) {}
 
+    login(username: string) {
+        return this.commPersonRepository.findOneOrFail({
+            where: { username },
+            loadEagerRelations: true
+        });
+    }
+
     create(createCommPersonDto: CreateCommunityPersonDto) {
+        const username = createCommPersonDto.name.charAt(0).toLowerCase() + createCommPersonDto.surname.toLowerCase();
+        const testPassword = '123123';
         const person = this.commPersonRepository.create({
             ...createCommPersonDto,
+            username,
+            password: createCommPersonDto?.password ? createCommPersonDto?.password : testPassword,
             entity: { id: createCommPersonDto.entity }
         });
         return this.commPersonRepository.save(person);

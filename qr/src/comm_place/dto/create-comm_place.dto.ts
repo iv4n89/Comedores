@@ -20,8 +20,7 @@ export class CreateCommPlaceDto {
     address?: Partial<Address>;
 
     @IsOptional()
-    @IsInt()
-    entity?: number | number[];
+    entity?: number[];
 
     @IsOptional()
     @IsInt()

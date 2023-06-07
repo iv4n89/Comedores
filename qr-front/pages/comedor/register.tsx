@@ -37,7 +37,7 @@ export default function ComedorRegister() {
     })
 
     const onsubmit = (data: any) => {
-        commPlaceApi.createPlace({ ...data, ...(addEntity && entitiesAdd.length && { entities: entitiesAdd }) }).then(() => push({ pathname: '/comedor/all' }))
+        commPlaceApi.createPlace({ ...data, ...(addEntity && entitiesAdd.length && { entity: entitiesAdd }) }).then(() => push({ pathname: '/comedor/all' }))
     };
     const handleEntityAddChange = (event: SelectChangeEvent<typeof entitiesAdd>) => {
         const { target: { value } } = event;
@@ -165,7 +165,7 @@ export default function ComedorRegister() {
                                         <FormControlBox>
                                             <InputLabel id='ent-id'>Entidades</InputLabel>
                                             <Controller
-                                                name='entities'
+                                                name='entity'
                                                 control={control}
                                                 rules={{ required: false }}
                                                 render={

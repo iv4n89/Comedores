@@ -6,6 +6,7 @@ import { CommonModule } from './common/common.module';
 import { CommKitchenModule } from './comm_place/comm_place.module';
 import { CountryModule } from './country/country.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { UserModule } from './user/user.module';
     CountryModule,
     CommKitchenModule,
     CommonModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

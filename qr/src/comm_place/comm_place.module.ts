@@ -15,6 +15,7 @@ import { Address } from 'src/user/entities/address.entity';
 @Module({
   controllers: [CommPlaceController, CommEntityController, CommunityPersonController],
   providers: [CommPlaceService, CommunityEntityService, CommunityPersonService],
-  imports: [TypeOrmModule.forFeature([CommPlace,CommPlaceUserRegistry, CommunityEntity, CommunityEntityPerson, Address])]
+  imports: [TypeOrmModule.forFeature([CommPlace,CommPlaceUserRegistry, CommunityEntity, CommunityEntityPerson, Address])],
+  exports: [CommunityPersonService]
 })
 export class CommKitchenModule {}

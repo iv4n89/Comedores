@@ -6,7 +6,7 @@ import { CreateCommPlaceDto } from './dto/create-comm_place.dto';
 import { UpdateCommPlaceDto } from './dto/update-comm_place.dto';
 import { CommunityEntity } from './entities/comm_entity.entity';
 import { CommunityEntityPerson } from './entities/comm_entity_person.entity';
-import { CommPlace } from './entities/comm_place.entity';
+import { CommPlace, CommPlaceType } from './entities/comm_place.entity';
 
 @Injectable()
 export class CommPlaceService {
@@ -35,8 +35,24 @@ export class CommPlaceService {
       commPlace.address = address;
     }
 
+    if (createCommPlaceDto?.entity) {
+      const entities = [];
+      for (const ent of createCommPlaceDto?.entity) {
+        const _ent = await this.commEntityRepository.findOneOrFail({ where: { id: ent } });
+        entities.push(_ent);
+      }
+      commPlace.entity = entities;
+    }
+
     return this.commPlaceRepository.save(commPlace);
     
+  }
+
+  findKitchensOrStores(type: CommPlaceType) {
+    return this.commPlaceRepository.find({
+      where: { type },
+      loadEagerRelations: true
+    });
   }
 
   findAll() {

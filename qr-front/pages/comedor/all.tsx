@@ -1,9 +1,9 @@
 import commPlaceApi from "@/api/commPlace.api";
 import { Layout } from "@/base/Layout";
-import { CommPlace } from "@/interfaces/entity.interface";
+import { CommPlace, Entity } from "@/interfaces/entity.interface";
 import { capitalizeWord } from "@/util/strUtils";
 import { Typography } from "@mui/material";
-import { Card, Container, Grid } from "@nextui-org/react";
+import { Badge, Card, Container, Grid } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 
 
@@ -63,6 +63,22 @@ export default function ComedorAll() {
                                                 </label>
                                             </div>
                                         </div>
+                                        {
+                                            com.entity?.length && (
+                                                <div className="pt-2">
+                                                    <Typography>Entidades: </Typography>
+                                                    <div className="p3 mt-2">
+                                                        {
+                                                            com.entity.map((e: Entity) => (
+                                                                <Badge key={e.id}>
+                                                                    { e.name }
+                                                                </Badge>
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </div>
+                                            ) || null
+                                        }
                                     </Card.Body>
                                 </Card>
                             </Grid>

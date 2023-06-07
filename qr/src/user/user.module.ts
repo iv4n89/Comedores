@@ -5,10 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { IdentityDoc } from './entities/identityDoc.entity';
 import { Address } from './entities/address.entity';
+import { CommPlace } from 'src/comm_place/entities/comm_place.entity';
 
 @Module({
   controllers: [UserController],
   providers: [UserService],
-  imports: [TypeOrmModule.forFeature([User, IdentityDoc, Address])]
+  imports: [TypeOrmModule.forFeature([User, IdentityDoc, Address, CommPlace])]
 })
 export class UserModule {}

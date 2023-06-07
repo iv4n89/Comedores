@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { CommPlace } from 'src/comm_place/entities/comm_place.entity';
+import { In, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Address } from './entities/address.entity';
@@ -16,6 +17,8 @@ export class UserService {
     private readonly addressRepository: Repository<Address>,
     @InjectRepository(IdentityDoc)
     private readonly identityDocRepository: Repository<IdentityDoc>,
+    @InjectRepository(CommPlace)
+    private readonly commPlaceRepository: Repository<CommPlace>,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -35,6 +38,16 @@ export class UserService {
       const _idDoc = this.identityDocRepository.create(createUserDto.identityDoc);
       const idDoc = await this.identityDocRepository.save(_idDoc);
       _user.identityDoc = idDoc;
+    }
+
+    if (createUserDto?.places) {
+      const places = await this.commPlaceRepository.find({
+        where: {
+          id: In(createUserDto?.places)
+        },
+        loadEagerRelations: true
+      });
+      _user.commPlaces = places;
     }
 
     return this.userRepository.save({
@@ -83,6 +96,17 @@ export class UserService {
         user.identityDoc = idDoc;
       }
         delete updateUserDto.identityDoc;
+    }
+
+    if (updateUserDto?.places) {
+      const places = await this.commPlaceRepository.find({
+        where: {
+          id: In(updateUserDto?.places)
+        },
+        loadEagerRelations: true
+      });
+      user.commPlaces = places;
+      delete updateUserDto?.places;
     }
 
     Object.assign(user, updateUserDto);

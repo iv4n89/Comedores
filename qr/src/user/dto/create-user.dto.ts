@@ -24,7 +24,6 @@ export class CreateUserDto {
     address?: Partial<Address>;
 
     @IsOptional()
-    @IsNumber()
-    commPlaceId?: number;
+    places?: number[];
 
 }

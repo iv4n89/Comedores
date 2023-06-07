@@ -7,9 +7,9 @@ export class CreateCommunityPersonDto {
     @IsString()
     name: string;
     
-    @IsOptional()
+    @IsNotEmpty()
     @IsString()
-    surname?: string;
+    surname: string;
 
     @IsNotEmpty()
     @IsPhoneNumber('ES')
@@ -19,5 +19,9 @@ export class CreateCommunityPersonDto {
     @IsNotEmpty()
     @IsInt()
     entity: number;
+
+    @IsOptional()
+    @IsString()
+    password?: string;
 
 }

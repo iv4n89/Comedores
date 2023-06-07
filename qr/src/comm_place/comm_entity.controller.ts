@@ -26,6 +26,7 @@ export class CommEntityController {
         return this.commEntityService.create(body);
     }
 
+
     @Patch(':id')
     public update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateCommunityEntityDto) {
         return this.commEntityService.update(id, body);

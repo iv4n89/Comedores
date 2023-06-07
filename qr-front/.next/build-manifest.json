@@ -25,6 +25,21 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
+    "/comedor/all": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/comedor/all.js"
+    ],
+    "/comedor/register": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/comedor/register.js"
+    ],
+    "/entidad/all": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/entidad/all.js"
+    ],
     "/entidad/register": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
